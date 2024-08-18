@@ -66,7 +66,7 @@ class EngagebayClient
             );
         }
 
-        $options = new ClientOption();
+        // $options = new ClientOption();
 
         $options
             ->addHeader('Authorization', $this->apiKey)
