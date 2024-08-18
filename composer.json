@@ -1,0 +1,20 @@
+{
+    "name": "aika/engagebay-api",
+    "description": "A PHP library for Engagebay API integration",
+    "type": "libary",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Aika\\Engagebay\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Donatien Kamary",
+            "email": "donatkamary@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "7.0"
+    }
+}
