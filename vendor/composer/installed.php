@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'aika/engagebay-api',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'reference' => '267ac62dd704140a67c9c81e68ff0647b312efc9',
         'type' => 'libary',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'aika/engagebay-api' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'reference' => '267ac62dd704140a67c9c81e68ff0647b312efc9',
             'type' => 'libary',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
