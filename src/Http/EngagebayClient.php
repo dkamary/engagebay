@@ -131,10 +131,11 @@ class EngagebayClient
     private function execute(string $method, string $uri, array $options): ResponseInterface
     {
         $client = new Client();
+        var_dump($options);
 
         if (self::METHOD_POST == $method) return $client->post($uri, $options);
 
-        if (self::METHOD_PUT == $method) return $client->post($uri, $options);
+        if (self::METHOD_PUT == $method) return $client->put($uri, $options);
 
         if (self::METHOD_DELETE == $method) return $client->delete($uri, $options);
 

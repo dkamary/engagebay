@@ -180,8 +180,8 @@ class Contact
         $this->forceCreate = $data['forceCreate'] ?? false;
         $this->forceUpdate = $data['forceUpdate'] ?? false;
         $this->score = intval($data['score'] ?? null);
-        
-        $this->setProperties($data['properties'] ?? null);
+
+        $this->setProperties($properties ?? null);
         $this->setOwner($data['owner'] ?? null);
         $this->setTags($data['tags'] ?? null);
         $this->setSources($data['sources'] ?? null);
@@ -216,6 +216,25 @@ class Contact
         return $this;
     }
 
+    public function setProperty(string $name, string $value, string $fieldType = ContactProperty::FIELD_TYPE_TEXT, string $type = ContactProperty::TYPE_CUSTOM, bool $isSearchable = false, ?string $subType = null): self
+    {
+        if (!$this->hasProperty($name)) {
+
+            return $this->addProperty(new ContactProperty([
+                'name' => $name,
+                'value' => $value,
+                'field_type' => $fieldType,
+                'type' => $type,
+                'is_searchable' => $isSearchable,
+                'subtype' => $subType,
+            ]));
+        }
+
+        $this->properties[$name]->value = $value;
+
+        return $this;
+    }
+
     public function getProperty(string $name): ?ContactProperty
     {
         if (!$this->properties) return null;
@@ -223,6 +242,13 @@ class Contact
         $property = $this->properties->get($name, null);
 
         return $property;
+    }
+
+    public function getPropertyValue(string $name, mixed $default = null): mixed
+    {
+        $property = $this->getProperty($name);
+
+        return $property ? $property->value : $default;
     }
 
     public function hasProperty(string $name): bool
@@ -255,13 +281,18 @@ class Contact
         if (empty($data)) return $this;
 
         $this->tags = new Collection();
-        foreach($data as $dt) {
+        foreach ($data as $dt) {
             $tag = new ContactTag($dt);
 
             $this->tags[$tag->tag] = $tag;
         }
 
         return $this;
+    }
+
+    public function getTags(): Collection
+    {
+        return $this->tags ?? new Collection();
     }
 
     public function setSources(?array $data): self
@@ -282,6 +313,87 @@ class Contact
         if (is_null($this->id) || $this->id == 0) return true;
 
         return false;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'owner_id' => $this->owner_id,
+            'name' => $this->name,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'fullname' => $this->fullname,
+            'name_sort' => $this->name_sort,
+            'email' => $this->email,
+            'created_time' => $this->created_time,
+            'updated_time' => $this->updated_time,
+            'status' => $this->status,
+            'sources' => $this->sources,
+            'companyIds' => $this->companyIds,
+            'contactIds' => $this->contactIds,
+            'properties' => $this->properties,
+            'listIds' => $this->listIds,
+            'owner' => $this->owner,
+            'entiy_group_name' => $this->entiy_group_name,
+            'tags' => $this->tags,
+            'broadcastIds' => $this->broadcastIds,
+            'openedLinks' => $this->openedLinks,
+            'emailProperties' => $this->emailProperties,
+            'unsubscribeList' => $this->unsubscribeList,
+            'emailBounceStatus' => $this->emailBounceStatus,
+            'importedEntity' => $this->importedEntity,
+            'forceCreate' => $this->forceCreate,
+            'forceUpdate' => $this->forceUpdate,
+            'score' => $this->score,
+        ];
+    }
+
+    public function export(): array
+    {
+        $properties = [];
+
+        if (!empty($this->firstname)) {
+            $properties[] = (new ContactProperty([
+                'name' =>  'name',
+                'value' =>  trim($this->firstname),
+                'field_type' =>  ContactProperty::FIELD_TYPE_TEXT,
+                'is_searchable' =>  false,
+                'type' =>  ContactProperty::TYPE_SYSTEM
+            ]))->toArray();
+        }
+
+        if (!empty($this->lastname)) {
+            $properties[] = (new ContactProperty([
+                'name' =>  'last_name',
+                'value' =>  trim($this->lastname),
+                'field_type' =>  ContactProperty::FIELD_TYPE_TEXT,
+                'is_searchable' =>  false,
+                'type' =>  ContactProperty::TYPE_SYSTEM
+            ]))->toArray();
+        }
+
+        if (!empty($this->email)) {
+            $properties[] = (new ContactProperty([
+                'name' =>  'email',
+                'value' =>  trim($this->email),
+                'field_type' =>  ContactProperty::FIELD_TYPE_TEXT,
+                'is_searchable' =>  false,
+                'type' =>  ContactProperty::TYPE_SYSTEM
+            ]))->toArray();
+        }
+
+        /**
+         * @var ContactProperty $property
+         */
+        foreach ($this->properties as $property) {
+            if (in_array($property->name, ['name', 'last_name', 'email'])) continue;
+
+            $properties[] = $property->toArray();
+        }
+
+
+        return $properties;
     }
 
     private function cleanValues(): self
