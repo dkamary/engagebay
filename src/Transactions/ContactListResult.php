@@ -75,10 +75,7 @@ class ContactListResult extends ListResult
     {
         if (empty($this->data)) return null;
 
-        var_dump($this->data, is_countable($this->data)); exit;
-
         foreach ($this->data as $contact) {
-            var_dump($contact); exit;
             return $contact;
         }
 
@@ -109,6 +106,7 @@ class ContactListResult extends ListResult
 
     public static function createFromResult(Result $result): ContactListResult
     {
+        // var_dump($result); die;
         $list = new ContactListResult();
         $list
             ->setStatus($result->getStatus() != ContactListResult::DONE ? $result->getStatus() : ContactListResult::FOUND)
@@ -116,8 +114,17 @@ class ContactListResult extends ListResult
         
         if (is_array($result->getData())) {
             foreach ($result->getData() as $data) {
+
+                if (!is_array($data)) {
+                    $contact = new Contact($result->getData());
+                    $list->addContact($contact);
+                    break; 
+                }
+
                 $contact = new Contact($data);
                 $list->addContact($contact);
+
+                if (isset($data['cursor'])) $list->setCursor($data['cursor']);
             }
         }
 

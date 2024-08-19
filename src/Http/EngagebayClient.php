@@ -66,16 +66,15 @@ class EngagebayClient
             );
         }
 
-        // $options = new ClientOption();
-
         $options
             ->addHeader('Authorization', $this->apiKey)
             ->addHeader('Accept', self::MIME_JSON);
 
         try {
+            var_dump(['uri' => $uri, 'options' => $options->getOptions()]); 
 
             $response = $this->execute($method, $uri, $options->getOptions());
-
+            
             if ($response->getStatusCode() != 200) {
 
                 return new Result(
@@ -84,7 +83,7 @@ class EngagebayClient
                         '[Failed] - Unable to perform `%s` request on `%s`: %s',
                         $method,
                         $uri,
-                        $response->getReasonPhrase()
+                        $response->getReasonPhrase() .' [' . $response->getBody()->getContents() . ']'
                     )
                 );
             }
@@ -137,7 +136,7 @@ class EngagebayClient
 
         if (self::METHOD_PUT == $method) return $client->post($uri, $options);
 
-        if (self::METHOD_DELETE) return $client->delete($uri, $options);
+        if (self::METHOD_DELETE == $method) return $client->delete($uri, $options);
 
         return $client->get($uri, $options);
     }

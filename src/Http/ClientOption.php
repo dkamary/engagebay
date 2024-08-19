@@ -102,7 +102,7 @@ class ClientOption
     {
         if (!isset($this->options['query'])) $this->options['query'] = [];
 
-        $this->options['query'][] = [$name => $value];
+        $this->options['query'][$name] = $value;
 
         return $this;
     }

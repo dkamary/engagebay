@@ -69,7 +69,7 @@ class Result
 
     public function setMessage(string $message, ...$args): self
     {
-        $this->message = sprintf($message, ...$args);
+        $this->message = count($args) > 1 ? sprintf($message, ...$args) : $message;
         return $this;
     }
 
