@@ -13,13 +13,13 @@ use Aika\Engagebay\Transactions\Result;
 
 class ContactManager
 {
-    public static function getContactList(string $apiKey, ?string $cursor = null, int $pageSize = 10, string $sortKey = '-created_time'): ContactListResult
+    public static function getContactList(string $apiKey, ?string $cursor = null, int $pageSize = 10, string $sortKey = '-created_time', bool $verifySSL = false): ContactListResult
     {
         $uri = 'https://app.engagebay.com/dev/api/panel/subscribers';
         
         $options = new ClientOption();
         $options
-            ->verifySSL(false)
+            ->verifySSL($verifySSL)
             ->addFormParams('page_size', $pageSize)
             ->addFormParams('sort_key', $sortKey);
         // var_dump($options->getOptions()); exit;
@@ -32,13 +32,13 @@ class ContactManager
         return $result;
     }
 
-    public static function getContactById(string $apiKey, int $contactId): ContactListResult
+    public static function getContactById(string $apiKey, int $contactId, bool $verifySSL = false): ContactListResult
     {
         $uri = 'https://app.engagebay.com/dev/api/panel/subscribers/' . $contactId;
         
         $options = new ClientOption();
         $options
-            ->verifySSL(false);
+            ->verifySSL($verifySSL);
 
         $client = new EngagebayClient($apiKey);
         $result = ContactListResult::createFromResult($client->get($uri, $options));
@@ -46,12 +46,12 @@ class ContactManager
         return $result;
     }
 
-    public static function getContactByEmail(string $apiKey, string $email): ContactListResult
+    public static function getContactByEmail(string $apiKey, string $email, bool $verifySSL = false): ContactListResult
     {
         $uri = 'https://app.engagebay.com/dev/api/panel/subscribers/contact-by-email/' . $email;
 
         $options = new ClientOption();
-        $options->verifySSL(false);
+        $options->verifySSL($verifySSL);
 
         $client = new EngagebayClient($apiKey);
         $result = ContactListResult::createFromResult($client->get($uri, $options));
@@ -59,7 +59,7 @@ class ContactManager
         return $result;
     }
 
-    public static function searchContact(string $apiKey, string $search): ContactListResult
+    public static function searchContact(string $apiKey, string $search, bool $verifySSL = false): ContactListResult
     {
         $uri = 'https://app.engagebay.com/dev/api/search';
 
@@ -74,7 +74,7 @@ class ContactManager
 
         $options = new ClientOption();
         $options
-            ->verifySSL(false)
+            ->verifySSL($verifySSL)
             ->addQuery('q', $search)
             ->addQuery('type', 'Subscriber');
 
@@ -84,13 +84,13 @@ class ContactManager
         return $result;
     }
 
-    public static function getContactNotes(string $apiKey, int $contactId): NoteListResult
+    public static function getContactNotes(string $apiKey, int $contactId, bool $verifySSL = false): NoteListResult
     {
         $uri = 'https://app.engagebay.com/dev/api/panel/notes/' . $contactId;
 
         $options = new ClientOption();
         $options
-            ->verifySSL(false);
+            ->verifySSL($verifySSL);
 
         $client = new EngagebayClient($apiKey);
         $result = NoteListResult::createFromResult($client->get($uri, $options));
@@ -98,7 +98,7 @@ class ContactManager
         return $result;
     }
 
-    public static function createContact(string $apiKey, Contact &$contact): ContactSubmitResult
+    public static function createContact(string $apiKey, Contact &$contact, bool $verifySSL = false): ContactSubmitResult
     {
         $tags = [];
         foreach ($contact->getTags() as $tag) {
@@ -117,13 +117,13 @@ class ContactManager
         return $result;
     }
 
-    public static function create(string $apiKey, array $data): ContactSubmitResult
+    public static function create(string $apiKey, array $data, bool $verifySSL = false): ContactSubmitResult
     {
         $uri = 'https://app.engagebay.com/dev/api/panel/subscribers/subscriber';
 
         $options = new ClientOption();
         $options
-            ->verifySSL(false)
+            ->verifySSL($verifySSL)
             ->addHeader('Content-Type', EngagebayClient::MIME_JSON)
             ->setJson($data);
 
@@ -133,7 +133,7 @@ class ContactManager
         return $result;
     }
 
-    public static function updateContact(string $apiKey, Contact &$contact, bool $synchContact = true): ContactSubmitResult
+    public static function updateContact(string $apiKey, Contact &$contact, bool $synchContact = true, bool $verifySSL = false): ContactSubmitResult
     {
         if (empty($contact->id)) return new ContactSubmitResult(
             ContactSubmitResult::NOTHING_HAPPENED,
@@ -155,13 +155,13 @@ class ContactManager
         return $result;
     }
 
-    public static function update(string $apiKey, array $data): ContactSubmitResult
+    public static function update(string $apiKey, array $data, bool $verifySSL = false): ContactSubmitResult
     {
         $uri = 'https://app.engagebay.com/dev/api/panel/subscribers/update-partial';
 
         $options = new ClientOption();
         $options
-            ->verifySSL(false)
+            ->verifySSL($verifySSL)
             ->addHeader('Content-Type', EngagebayClient::MIME_JSON)
             ->setJson($data);
 
@@ -169,5 +169,18 @@ class ContactManager
         $result = ContactSubmitResult::createFromResult($client->put($uri, $options));
 
         return $result; 
+    }
+
+    public static function delete(string $apiKey, int $contactId, bool $verifySSL = false): Result
+    {
+        $uri = 'https://app.engagebay.com/dev/api/panel/subscribers/' . $contactId;
+
+        $options = new ClientOption();
+        $options->verifySSL($verifySSL);
+
+        $client = new EngagebayClient($apiKey);
+        $result = $client->delete($uri, $options);
+
+        return $result;
     }
 }

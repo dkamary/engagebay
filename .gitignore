@@ -19,3 +19,4 @@ yarn-error.log
 test.php
 create-test.php
 update-test.php
+delete-test.php
