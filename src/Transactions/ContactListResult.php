@@ -106,7 +106,6 @@ class ContactListResult extends ListResult
 
     public static function createFromResult(Result $result): ContactListResult
     {
-        // var_dump($result); die;
         $list = new ContactListResult();
         $list
             ->setStatus($result->getStatus() != ContactListResult::DONE ? $result->getStatus() : ContactListResult::FOUND)
@@ -127,6 +126,8 @@ class ContactListResult extends ListResult
                 if (isset($data['cursor'])) $list->setCursor($data['cursor']);
             }
         }
+
+        if ($list->getStatus() == self::FOUND && $list->getContactList()->count() == 0) $list->setStatus(self::NOT_FOUND);
 
         return $list;
     }
