@@ -294,6 +294,18 @@ abstract class AbstractContact implements ContactInterface
         return $this->tags ?? new Collection();
     }
 
+    public function addTag(string $tag): static
+    {
+        $tag = trim($tag);
+        if (empty($tag)) return $this;
+
+        if (empty($this->tags)) $this->tags = new Collection();
+
+        $this->tags[$tag] = new ContactTag(['tag' => $tag]);
+
+        return $this;
+    }
+
     public function setSources(?array $data): static
     {
         if (empty($data)) return $this;

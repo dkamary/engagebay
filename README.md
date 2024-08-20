@@ -2,7 +2,16 @@
 
 This PHP library provides functionalities for managing contacts through the EngageBay API.
 
-### Version 0.3.1
+### Version 0.4
+
+It includes new fix NOT FOUND + New method in Contact.
+
+## Features
+
+- **NOT FOUND in ConactList:** NOT FOUND tag when list is empty.
+- **New method called addTag added to Contact class:** Add individual tag.
+
+### Version 0.3
 
 It includes new fix to PSR4 class namespace and new alias in Contact Entity (save & delete).
 
