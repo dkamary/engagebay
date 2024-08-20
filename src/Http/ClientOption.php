@@ -83,7 +83,7 @@ class ClientOption
     {
         if (!isset($this->options['form_params'])) $this->options['form_params'] = [];
 
-        $this->options['form_params'][] = [$name => $value];
+        $this->options['form_params'][$name] = $value;
 
         return $this;
     }
@@ -102,7 +102,7 @@ class ClientOption
     {
         if (!isset($this->options['query'])) $this->options['query'] = [];
 
-        $this->options['query'][] = [$name => $value];
+        $this->options['query'][$name] = $value;
 
         return $this;
     }

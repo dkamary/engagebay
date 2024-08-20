@@ -8,11 +8,13 @@ use Iterator;
 class Collection implements ArrayAccess, Iterator
 {
     protected array $items = [];
-    protected int $position = 0;
+    protected int|string $position = 0;
+    protected array $keys = [];
 
     public function __construct(array $items = [])
     {
         $this->items = $items;
+        $this->keys = array_keys($items);
         $this->position = 0;
     }
 
@@ -34,22 +36,24 @@ class Collection implements ArrayAccess, Iterator
         } else {
             $this->items[$offset] = $value;
         }
+        $this->keys = array_keys($this->items); // Update keys when setting a new value
     }
 
     public function offsetUnset($offset): void
     {
         unset($this->items[$offset]);
+        $this->keys = array_keys($this->items); // Update keys when unsetting a value
     }
 
     // Iterator methods
     public function current(): mixed
     {
-        return $this->items[$this->position];
+        return $this->items[$this->keys[$this->position]];
     }
 
-    public function key(): int
+    public function key(): mixed
     {
-        return $this->position;
+        return $this->keys[$this->position];
     }
 
     public function next(): void
@@ -64,11 +68,11 @@ class Collection implements ArrayAccess, Iterator
 
     public function valid(): bool
     {
-        return isset($this->items[$this->position]);
+        return isset($this->keys[$this->position]);
     }
 
     // Custom method
-    public function get(string $key, $default = null)
+    public function get(string $key, $default = null): mixed
     {
         return $this->items[$key] ?? $default;
     }
