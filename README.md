@@ -2,7 +2,7 @@
 
 This PHP library provides functionalities for managing contacts through the EngageBay API.
 
-### Version 0.3
+### Version 0.3.1
 
 It includes new fix to PSR4 class namespace and new alias in Contact Entity (save & delete).
 
@@ -10,6 +10,7 @@ It includes new fix to PSR4 class namespace and new alias in Contact Entity (sav
 
 - **Delete Contact alias:** Easily delete contact.
 - **Save Contact alias:** Abstraction of create & delete contact.
+- **Not found contact list**
 
 ### Version 0.2
 
