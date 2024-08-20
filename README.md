@@ -1,8 +1,18 @@
 # ENGAGEBAY-API
 
+This PHP library provides functionalities for managing contacts through the EngageBay API.
+
+### Version 0.2
+
+It includes the ability to delete Contact.
+
+## Features
+
+- **Delete Contact:** Easily delete contact.
+
 ### Version 0.1
 
-This PHP library provides functionalities for managing contacts through the EngageBay API. It includes the ability to create, update, and search for contacts by ID or email.
+It includes the ability to create, update, and search for contacts by ID or email.
 
 ## Features
 
@@ -12,9 +22,7 @@ This PHP library provides functionalities for managing contacts through the Enga
 
 ## Installation
 
-Clone the repository and install the dependencies using Composer:
+Install the dependencies using Composer:
 
 ```bash
-git clone [repository-url]
-cd ENGAGEBAY-API
-composer install
+composer require aika/engagebay-api
