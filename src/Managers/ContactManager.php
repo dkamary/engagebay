@@ -98,7 +98,7 @@ class ContactManager
         return $result;
     }
 
-    public static function createContact(string $apiKey, Contact $contact): ContactSubmitResult
+    public static function createContact(string $apiKey, Contact &$contact): ContactSubmitResult
     {
         $tags = [];
         foreach ($contact->getTags() as $tag) {
@@ -111,7 +111,10 @@ class ContactManager
             'tags' => $tags,
         ];
 
-        return self::create($apiKey, $data);
+        $result = self::create($apiKey, $data);
+        if ($result->isSuccess()) $contact = $result->getContact();
+
+        return $result;
     }
 
     public static function create(string $apiKey, array $data): ContactSubmitResult
@@ -130,17 +133,26 @@ class ContactManager
         return $result;
     }
 
-    public static function updateContact(string $apiKey, Contact $contact): ContactSubmitResult
+    public static function updateContact(string $apiKey, Contact &$contact, bool $synchContact = true): ContactSubmitResult
     {
-        /**
-         * TODO ContactID a verifier car tjs a 0
-         */
+        if (empty($contact->id)) return new ContactSubmitResult(
+            ContactSubmitResult::NOTHING_HAPPENED,
+            'Contact ID is not defined',
+            $contact
+        );
+
         $data = [
             'id' => $contact->id,
             'properties' => $contact->export(),
         ];
 
-        return self::update($apiKey, $data);
+        $result = self::update($apiKey, $data);
+
+        if ($synchContact && $result->isSuccess()) {
+            $contact = $result->getContact();
+        }
+
+        return $result;
     }
 
     public static function update(string $apiKey, array $data): ContactSubmitResult
