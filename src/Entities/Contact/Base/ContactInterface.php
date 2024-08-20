@@ -29,6 +29,8 @@ interface ContactInterface
 
     public function getTags(): Collection;
 
+    public function addTag(string $tag): static;
+
     public function setSources(?array $data): static;
 
     public function isNew(): bool;
