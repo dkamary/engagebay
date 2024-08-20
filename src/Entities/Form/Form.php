@@ -1,8 +1,9 @@
 <?php
 
-namespace Aika\Engagebay\Form;
+namespace Aika\Engagebay\Entities\Form;
 
 class Form
 {
-    // 
+    public $id;
+    public $name;
 }

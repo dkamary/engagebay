@@ -2,6 +2,15 @@
 
 This PHP library provides functionalities for managing contacts through the EngageBay API.
 
+### Version 0.3
+
+It includes new fix to PSR4 class namespace and new alias in Contact Entity (save & delete).
+
+## Features
+
+- **Delete Contact alias:** Easily delete contact.
+- **Save Contact alias:** Abstraction of create & delete contact.
+
 ### Version 0.2
 
 It includes the ability to delete Contact.
@@ -22,7 +31,7 @@ It includes the ability to create, update, and search for contacts by ID or emai
 
 ## Installation
 
-Install the dependencies using Composer:
+Installation using Composer:
 
 ```bash
 composer require aika/engagebay-api
