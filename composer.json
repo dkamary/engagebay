@@ -1,4 +1,5 @@
 {
+    "version": "0.1",
     "name": "aika/engagebay-api",
     "description": "A PHP library for Engagebay API integration",
     "type": "libary",
@@ -15,6 +16,6 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "7.0"
+        "guzzlehttp/guzzle": "^7.0"
     }
 }
