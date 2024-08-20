@@ -22,7 +22,7 @@ It includes the ability to create, update, and search for contacts by ID or emai
 
 ## Installation
 
-Install the dependencies using Composer:
+Installation using Composer:
 
 ```bash
 composer require aika/engagebay-api

@@ -56,7 +56,7 @@ class Result
         $this->data = $data;
     }
 
-    public function setStatus(int $status): self
+    public function setStatus(int $status): static
     {
         $this->status = $status;
         return $this;
@@ -67,7 +67,7 @@ class Result
         return $this->status;
     }
 
-    public function setMessage(string $message, ...$args): self
+    public function setMessage(string $message, ...$args): static
     {
         $this->message = count($args) > 1 ? sprintf($message, ...$args) : $message;
         return $this;
@@ -78,7 +78,7 @@ class Result
         return $this->message;
     }
 
-    public function setData(mixed $data): self
+    public function setData(mixed $data): static
     {
         $this->data = $data;
         return $this;

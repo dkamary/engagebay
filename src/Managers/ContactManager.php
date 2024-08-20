@@ -111,7 +111,7 @@ class ContactManager
             'tags' => $tags,
         ];
 
-        $result = self::create($apiKey, $data);
+        $result = self::create($apiKey, $data, $verifySSL);
         if ($result->isSuccess()) $contact = $result->getContact();
 
         return $result;
@@ -119,6 +119,22 @@ class ContactManager
 
     public static function create(string $apiKey, array $data, bool $verifySSL = false): ContactSubmitResult
     {
+        if (empty($data['properties'] ?? null)) {
+            
+            return (new ContactSubmitResult(
+                ContactSubmitResult::REFUSED,
+                'Contact Properties is not defined!'
+            ))->setData($data);
+        }
+
+        if (!is_array($data['properties'])) {
+            
+            return (new ContactSubmitResult(
+                ContactSubmitResult::REFUSED,
+                'Contact Properties must be an array!'
+            ))->setData($data);
+        }
+
         $uri = 'https://app.engagebay.com/dev/api/panel/subscribers/subscriber';
 
         $options = new ClientOption();
@@ -146,7 +162,7 @@ class ContactManager
             'properties' => $contact->export(),
         ];
 
-        $result = self::update($apiKey, $data);
+        $result = self::update($apiKey, $data, $verifySSL);
 
         if ($synchContact && $result->isSuccess()) {
             $contact = $result->getContact();
@@ -157,6 +173,14 @@ class ContactManager
 
     public static function update(string $apiKey, array $data, bool $verifySSL = false): ContactSubmitResult
     {
+        if (empty($data['id'] ?? null)) {
+            
+            return (new ContactSubmitResult(
+                ContactSubmitResult::REFUSED,
+                'Contact ID is not defined!'
+            ))->setData($data);
+        }
+
         $uri = 'https://app.engagebay.com/dev/api/panel/subscribers/update-partial';
 
         $options = new ClientOption();
@@ -173,6 +197,14 @@ class ContactManager
 
     public static function delete(string $apiKey, int $contactId, bool $verifySSL = false): Result
     {
+        if (empty($contactId)) {
+            
+            return new Result(
+                ContactSubmitResult::REFUSED,
+                'Contact ID is not defined!'
+            );
+        }
+
         $uri = 'https://app.engagebay.com/dev/api/panel/subscribers/' . $contactId;
 
         $options = new ClientOption();
