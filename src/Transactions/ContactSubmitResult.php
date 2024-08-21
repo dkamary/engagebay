@@ -59,7 +59,8 @@ class ContactSubmitResult extends Result
         ) {
             $theResult
                 ->setStatus(self::ALREADY_EXISTS)
-                ->setMessage('A Contact with this email address already exists');
+                ->setMessage('A Contact with this email address already exists')
+                ->setData(new Contact($result->getData()));
         }
 
         return $theResult;
