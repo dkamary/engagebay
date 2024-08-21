@@ -7,13 +7,13 @@ use Aika\Engagebay\Utils\Collection;
 
 interface ContactInterface
 {
-    public function hydrate(array $data): self;
+    public function hydrate(array $data): ContactInterface;
 
-    public function setProperties(?array $properties): self;
+    public function setProperties(?array $properties): ContactInterface;
 
-    public function addProperty(ContactProperty $property): self;
+    public function addProperty(ContactProperty $property): ContactInterface;
 
-    public function setProperty(string $name, string $value, string $fieldType = ContactProperty::FIELD_TYPE_TEXT, string $type = ContactProperty::TYPE_CUSTOM, bool $isSearchable = false, ?string $subType = null): self;
+    public function setProperty(string $name, string $value, string $fieldType = ContactProperty::FIELD_TYPE_TEXT, string $type = ContactProperty::TYPE_CUSTOM, bool $isSearchable = false, ?string $subType = null): ContactInterface;
 
     public function getProperty(string $name): ?ContactProperty;
 
@@ -21,17 +21,17 @@ interface ContactInterface
 
     public function hasProperty(string $name): bool;
 
-    public function removeProperty(string $name): self;
+    public function removeProperty(string $name): ContactInterface;
 
-    public function setOwner(?array $data): self;
+    public function setOwner(?array $data): ContactInterface;
 
-    public function setTags(?array $data): self;
+    public function setTags(?array $data): ContactInterface;
 
     public function getTags(): Collection;
 
-    public function addTag(string $tag): self;
+    public function addTag(string $tag): ContactInterface;
 
-    public function setSources(?array $data): self;
+    public function setSources(?array $data): ContactInterface;
 
     public function isNew(): bool;
 
