@@ -2,6 +2,9 @@
 
 This PHP library provides functionalities for managing contacts through the EngageBay API.
 
+### Version 0.5
+Retro compatibility with 7.3
+
 ### Version 0.4
 
 It includes new fix NOT FOUND + New method in Contact.
