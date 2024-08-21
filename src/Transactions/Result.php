@@ -45,9 +45,9 @@ class Result
         self::ERROR,
     ];
 
-    protected int $status = 0;
-    protected ?string $message = null;
-    protected mixed $data = null;
+    protected $status = 0;
+    protected $message = null;
+    protected $data = null;
 
     public function __construct(int $status = self::UNKNOW, ?string $message = null, mixed $data = null)
     {
