@@ -1,5 +1,5 @@
 {
-    "version": "0.6",
+    "version": "0.6.2",
     "name": "aika/engagebay-api",
     "description": "A PHP library for Engagebay API integration",
     "type": "libary",

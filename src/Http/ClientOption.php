@@ -49,7 +49,7 @@ class ClientOption
         return $this->options['headers'] ?? [];
     }
 
-    public function addHeader(string $name, mixed $value): self
+    public function addHeader(string $name, $value): self
     {
         if (!isset($this->options['headers'])) $this->options['headers'] = [];
         $this->options['headers'][$name] = $value;
