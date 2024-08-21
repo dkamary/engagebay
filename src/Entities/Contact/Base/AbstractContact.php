@@ -153,7 +153,7 @@ abstract class AbstractContact implements ContactInterface
     public $forceUpdate = false;
     public $score = 5;
     
-    public function hydrate(array $data): self
+    public function hydrate(array $data): ContactInterface
     {
         $this->id = intval($data['id'] ?? null);
         $this->owner_id = intval($data['owner_id'] ?? null);
@@ -189,7 +189,7 @@ abstract class AbstractContact implements ContactInterface
         return $this;
     }
 
-    public function setProperties(?array $properties): self
+    public function setProperties(?array $properties): ContactInterface
     {
         if (empty($properties)) return $this;
 
@@ -204,7 +204,7 @@ abstract class AbstractContact implements ContactInterface
         return $this;
     }
 
-    public function addProperty(ContactProperty $property): self
+    public function addProperty(ContactProperty $property): ContactInterface
     {
         if (empty($property->name)) return $this;
 
@@ -215,7 +215,7 @@ abstract class AbstractContact implements ContactInterface
         return $this;
     }
 
-    public function setProperty(string $name, string $value, string $fieldType = ContactProperty::FIELD_TYPE_TEXT, string $type = ContactProperty::TYPE_CUSTOM, bool $isSearchable = false, ?string $subType = null): self
+    public function setProperty(string $name, string $value, string $fieldType = ContactProperty::FIELD_TYPE_TEXT, string $type = ContactProperty::TYPE_CUSTOM, bool $isSearchable = false, ?string $subType = null): ContactInterface
     {
         if (!$this->hasProperty($name)) {
 
@@ -257,7 +257,7 @@ abstract class AbstractContact implements ContactInterface
         return isset($this->properties[$name]);
     }
 
-    public function removeProperty(string $name): self
+    public function removeProperty(string $name): ContactInterface
     {
         if (!$this->hasProperty($name)) return $this;
 
@@ -266,7 +266,7 @@ abstract class AbstractContact implements ContactInterface
         return $this;
     }
 
-    public function setOwner(?array $data): self
+    public function setOwner(?array $data): ContactInterface
     {
         if (empty($data)) return $this;
 
@@ -275,7 +275,7 @@ abstract class AbstractContact implements ContactInterface
         return $this;
     }
 
-    public function setTags(?array $data): self
+    public function setTags(?array $data): ContactInterface
     {
         if (empty($data)) return $this;
 
@@ -294,7 +294,7 @@ abstract class AbstractContact implements ContactInterface
         return $this->tags ?? new Collection();
     }
 
-    public function addTag(string $tag): self
+    public function addTag(string $tag): ContactInterface
     {
         $tag = trim($tag);
         if (empty($tag)) return $this;
@@ -306,7 +306,7 @@ abstract class AbstractContact implements ContactInterface
         return $this;
     }
 
-    public function setSources(?array $data): self
+    public function setSources(?array $data): ContactInterface
     {
         if (empty($data)) return $this;
 
@@ -407,7 +407,7 @@ abstract class AbstractContact implements ContactInterface
         return $properties;
     }
 
-    private function cleanValues(): self
+    private function cleanValues(): ContactInterface
     {
         if (!is_null($this->name)) $this->name = trim($this->name);
         if (!is_null($this->firstname)) $this->firstname = ucwords(trim($this->firstname));
