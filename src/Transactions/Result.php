@@ -84,7 +84,7 @@ class Result
         return $this;
     }
 
-    public function getData(): mixed
+    public function getData()
     {
         return $this->data;
     }
