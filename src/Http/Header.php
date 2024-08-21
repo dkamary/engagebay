@@ -32,7 +32,7 @@ class Header
         return $this;
     }
 
-    public function getValue(): mixed
+    public function getValue()
     {
         return $this->value;
     }
