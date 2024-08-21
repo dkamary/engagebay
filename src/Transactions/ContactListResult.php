@@ -127,7 +127,12 @@ class ContactListResult extends ListResult
             }
         }
 
-        if ($list->getStatus() == self::FOUND && $list->getContactList()->count() == 0) $list->setStatus(self::NOT_FOUND);
+        if (
+            ($list->getStatus() == self::FOUND && $list->getContactList()->count() == 0)
+            || ($list->getStatus() == self::WARNING && strpos($list->getMessage(), 'There is no contact exists with email') === false)
+        ) {
+            $list->setStatus(self::NOT_FOUND);
+        }
 
         return $list;
     }
