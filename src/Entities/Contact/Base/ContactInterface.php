@@ -17,7 +17,7 @@ interface ContactInterface
 
     public function getProperty(string $name): ?ContactProperty;
 
-    public function getPropertyValue(string $name, mixed $default = null): mixed;
+    public function getPropertyValue(string $name, $default = null): mixed;
 
     public function hasProperty(string $name): bool;
 

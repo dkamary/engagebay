@@ -15,7 +15,7 @@ class ContactListResult extends ListResult
      * @param string|null $message
      * @param Collection<Contact>|Contact[]|array|null $collection
      */
-    public function __construct(int $status = self::UNKNOW, ?string $message = null, mixed $collection = null, ?string $cursor = null)
+    public function __construct(int $status = self::UNKNOW, ?string $message = null, $collection = null, ?string $cursor = null)
     {
         parent::__construct($status, $message);
 

@@ -49,7 +49,7 @@ class Result
     protected $message = null;
     protected $data = null;
 
-    public function __construct(int $status = self::UNKNOW, ?string $message = null, mixed $data = null)
+    public function __construct(int $status = self::UNKNOW, ?string $message = null, $data = null)
     {
         $this->status = $status;
         $this->message = $message;
@@ -78,7 +78,7 @@ class Result
         return $this->message;
     }
 
-    public function setData(mixed $data): self
+    public function setData($data): self
     {
         $this->data = $data;
         return $this;
