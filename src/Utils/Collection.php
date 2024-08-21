@@ -7,9 +7,9 @@ use Iterator;
 
 class Collection implements ArrayAccess, Iterator
 {
-    protected array $items = [];
-    protected int|string $position = 0;
-    protected array $keys = [];
+    protected $items = [];
+    protected $position = 0;
+    protected $keys = [];
 
     public function __construct(array $items = [])
     {
