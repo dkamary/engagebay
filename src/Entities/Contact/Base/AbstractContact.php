@@ -243,7 +243,7 @@ abstract class AbstractContact implements ContactInterface
         return $property;
     }
 
-    public function getPropertyValue(string $name, $default = null): mixed
+    public function getPropertyValue(string $name, $default = null)
     {
         $property = $this->getProperty($name);
 

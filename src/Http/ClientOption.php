@@ -57,7 +57,7 @@ class ClientOption
         return $this;
     }
 
-    public function getHeader(string $name): mixed
+    public function getHeader(string $name)
     {
         return $this->options['headers'][$name] ?? null;
     }
@@ -69,7 +69,7 @@ class ClientOption
         return $this;
     }
 
-    public function get(string $name): mixed
+    public function get(string $name)
     {
         return $this->options[$name] ?? null;
     }
