@@ -86,6 +86,11 @@ class ContactManager
 
     public static function getContactNotes(string $apiKey, int $contactId, bool $verifySSL = false): NoteListResult
     {
+        if (empty($contactId)) {
+
+            return new Result(Result::REFUSED, "The contact ID is not defined. `$contactId` given", $contactId);
+        }
+        
         $uri = 'https://app.engagebay.com/dev/api/panel/notes/' . $contactId;
 
         $options = new ClientOption();
@@ -94,6 +99,31 @@ class ContactManager
 
         $client = new EngagebayClient($apiKey);
         $result = NoteListResult::createFromResult($client->get($uri, $options));
+
+        return $result;
+    }
+
+    public static function addNote(string $apiKey, int $contactId, string $subject, string $content, bool $verifySSL = false): Result
+    {
+        if (empty($contactId)) {
+
+            return new Result(Result::REFUSED, "The contact ID is not defined. `$contactId` given", $contactId);
+        }
+
+        $uri = 'https://app.engagebay.com/dev/api/panel/notes';
+
+        $options = new ClientOption();
+        $options
+            ->verifySSL($verifySSL)
+            ->addHeader('Content-Type', EngagebayClient::MIME_JSON)
+            ->setJson([
+                'parentId' => $contactId,
+                'subject' => $subject,
+                'content' => $content,
+            ]);
+
+        $client = new EngagebayClient($apiKey);
+        $result = $client->post($uri, $options);
 
         return $result;
     }
