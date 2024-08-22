@@ -2,6 +2,12 @@
 
 This PHP library provides functionalities for managing contacts through the EngageBay API.
 
+### Version 0.15
+Add new features
+
+#### Features
+- **Add Note:** Ability to add note via ContactManager & Contact (alias)
+
 ### Version 0.14
 Retro compatibility with 7.3
 
@@ -9,7 +15,7 @@ Retro compatibility with 7.3
 
 It includes new fix NOT FOUND + New method in Contact.
 
-## Features
+#### Features
 
 - **NOT FOUND in ConactList:** NOT FOUND tag when list is empty.
 - **New method called addTag added to Contact class:** Add individual tag.
@@ -18,7 +24,7 @@ It includes new fix NOT FOUND + New method in Contact.
 
 It includes new fix to PSR4 class namespace and new alias in Contact Entity (save & delete).
 
-## Features
+#### Features
 
 - **Delete Contact alias:** Easily delete contact.
 - **Save Contact alias:** Abstraction of create & delete contact.
@@ -28,7 +34,7 @@ It includes new fix to PSR4 class namespace and new alias in Contact Entity (sav
 
 It includes the ability to delete Contact.
 
-## Features
+#### Features
 
 - **Delete Contact:** Easily delete contact.
 
@@ -36,7 +42,7 @@ It includes the ability to delete Contact.
 
 It includes the ability to create, update, and search for contacts by ID or email.
 
-## Features
+#### Features
 
 - **Create Contact:** Easily create new contacts with various attributes.
 - **Update Contact:** Update existing contact details using their unique identifiers.
