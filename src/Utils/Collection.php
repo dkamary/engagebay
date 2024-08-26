@@ -115,4 +115,9 @@ class Collection implements ArrayAccess, Iterator
 
         return $result;
     }
+
+    public function getItems(): array
+    {
+        return $this->items;
+    }
 }
