@@ -1,6 +1,6 @@
 <?php
 
-namespace Aika\Engagebay\Form;
+namespace Aika\Engagebay\Entities\Form;
 
 class Form
 {
@@ -24,8 +24,23 @@ class Form
         $this->hydrate($data);
     }
 
-    public function hydrate(array $dat): static
+    public function hydrate(array $data): self
     {
-        //
+        $this->id = $data['id'] ?? null;
+        $this->name = $data['name'] ?? null;
+        $this->alias_name = $data['alias_name'] ?? null;
+        $this->owner_id = $data['owner_id'] ?? null;
+        $this->created_time = $data['created_time'] ?? null;
+        $this->updated_time = $data['updated_time'] ?? null;
+        $this->formHtml = $data['formHtml'] ?? null;
+        $this->form_attributes = $data['form_attributes'] ?? null;
+        $this->enable_whitelabel = $data['enable_whitelabel'] ?? null;
+        $this->form_style = $data['form_style'] ?? null;
+        $this->version = $data['version'] ?? null;
+        $this->incentiveEmail = $data['incentiveEmail'] ?? null;
+        $this->thumbnail = $data['thumbnail'] ?? null;
+        $this->formStats = $data['formStats'] ?? null;
+
+        return $this;
     }
 }

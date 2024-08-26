@@ -24,7 +24,7 @@ class Collection implements ArrayAccess, Iterator
         return isset($this->items[$offset]);
     }
 
-    public function offsetGet($offset): mixed
+    public function offsetGet($offset)
     {
         return $this->items[$offset] ?? null;
     }
@@ -46,12 +46,12 @@ class Collection implements ArrayAccess, Iterator
     }
 
     // Iterator methods
-    public function current(): mixed
+    public function current()
     {
         return $this->items[$this->keys[$this->position]];
     }
 
-    public function key(): mixed
+    public function key()
     {
         return $this->keys[$this->position];
     }
@@ -72,7 +72,7 @@ class Collection implements ArrayAccess, Iterator
     }
 
     // Custom method
-    public function get(string $key, $default = null): mixed
+    public function get(string $key, $default = null)
     {
         return $this->items[$key] ?? $default;
     }

@@ -7,7 +7,7 @@ class Header
     protected $name;
     protected $value;
 
-    public function __construct(?string $name = null, mixed $value = null)
+    public function __construct(?string $name = null, $value = null)
     {
         $this->name = $name;
         $this->value = $value;
@@ -25,14 +25,14 @@ class Header
         return $this->name;
     }
 
-    public function setValue(mixed $value): self
+    public function setValue($value): self
     {
         $this->value = $value;
 
         return $this;
     }
 
-    public function getValue(): mixed
+    public function getValue()
     {
         return $this->value;
     }

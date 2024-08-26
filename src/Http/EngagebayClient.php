@@ -71,16 +71,40 @@ class EngagebayClient
             ->addHeader('Accept', self::MIME_JSON);
 
         try {
-            var_dump(['uri' => $uri, 'options' => $options->getOptions()]); 
+            // var_dump(['uri' => $uri, 'options' => $options->getOptions()]); 
 
             $response = $this->execute($method, $uri, $options->getOptions());
+
+            // Manage DELETE request
+            if (EngagebayClient::METHOD_DELETE == $method) {
+
+                if ($response->getStatusCode() != 204) {
+
+                    return new Result(
+                        Result::FAILED,
+                        sprintf(
+                            '[Failed %d] - Unable to perform `%s` request on `%s`: %s',
+                            $response->getStatusCode(),
+                            $method,
+                            $uri,
+                            $response->getReasonPhrase() .' [' . $response->getBody()->getContents() . ']'
+                        )
+                    );
+                }
+
+                return new Result(
+                    Result::DONE,
+                    sprintf('`%s` request on `%s` successful', $method, $uri)
+                );
+            }
             
             if ($response->getStatusCode() != 200) {
 
                 return new Result(
                     Result::FAILED,
                     sprintf(
-                        '[Failed] - Unable to perform `%s` request on `%s`: %s',
+                        '[Failed %d] - Unable to perform `%s` request on `%s`: %s',
+                        $response->getStatusCode(),
                         $method,
                         $uri,
                         $response->getReasonPhrase() .' [' . $response->getBody()->getContents() . ']'
@@ -131,10 +155,11 @@ class EngagebayClient
     private function execute(string $method, string $uri, array $options): ResponseInterface
     {
         $client = new Client();
+        // var_dump($options);
 
         if (self::METHOD_POST == $method) return $client->post($uri, $options);
 
-        if (self::METHOD_PUT == $method) return $client->post($uri, $options);
+        if (self::METHOD_PUT == $method) return $client->put($uri, $options);
 
         if (self::METHOD_DELETE == $method) return $client->delete($uri, $options);
 

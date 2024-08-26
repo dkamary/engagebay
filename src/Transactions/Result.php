@@ -45,11 +45,11 @@ class Result
         self::ERROR,
     ];
 
-    protected int $status = 0;
-    protected ?string $message = null;
-    protected mixed $data = null;
+    protected $status = 0;
+    protected $message = null;
+    protected $data = null;
 
-    public function __construct(int $status = self::UNKNOW, ?string $message = null, mixed $data = null)
+    public function __construct(int $status = self::UNKNOW, ?string $message = null, $data = null)
     {
         $this->status = $status;
         $this->message = $message;
@@ -78,13 +78,13 @@ class Result
         return $this->message;
     }
 
-    public function setData(mixed $data): self
+    public function setData($data): self
     {
         $this->data = $data;
         return $this;
     }
 
-    public function getData(): mixed
+    public function getData()
     {
         return $this->data;
     }

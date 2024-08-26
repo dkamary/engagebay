@@ -15,7 +15,7 @@ class ContactListResult extends ListResult
      * @param string|null $message
      * @param Collection<Contact>|Contact[]|array|null $collection
      */
-    public function __construct(int $status = self::UNKNOW, ?string $message = null, mixed $collection = null, ?string $cursor = null)
+    public function __construct(int $status = self::UNKNOW, ?string $message = null, $collection = null, ?string $cursor = null)
     {
         parent::__construct($status, $message);
 
@@ -106,7 +106,6 @@ class ContactListResult extends ListResult
 
     public static function createFromResult(Result $result): ContactListResult
     {
-        // var_dump($result); die;
         $list = new ContactListResult();
         $list
             ->setStatus($result->getStatus() != ContactListResult::DONE ? $result->getStatus() : ContactListResult::FOUND)
@@ -126,6 +125,13 @@ class ContactListResult extends ListResult
 
                 if (isset($data['cursor'])) $list->setCursor($data['cursor']);
             }
+        }
+
+        if (
+            ($list->getStatus() == self::FOUND && $list->getContactList()->count() == 0)
+            || (strpos($list->getMessage(), 'There is no contact exists with email') !== false)
+        ) {
+            $list->setStatus(self::NOT_FOUND);
         }
 
         return $list;
